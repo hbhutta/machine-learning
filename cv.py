@@ -1,11 +1,53 @@
+import warnings
+
+# Base
 import numpy as np
 import pandas as pd
+
 import matplotlib.pyplot as plt
+plt.rc('figure', autolayout=True)
+plt.rc('axes', labelweight='bold', labelsize='large',
+       titleweight='bold', titlesize=18, titlepad=10)
+plt.rc('image', cmap='magma')
+
 import seaborn as sns
+sns.set_style('darkgrid')
+
+# System libraries
+from pathlib import Path
+import os.path
+import random
+
+
+# Optional
+import warnings
+warnings.filterwarnings("ignore") # to clean up output cells
 
 '''
 @vencerlanz09
-Displays 16 random pictures with their categories (in a 4x4 layout) 
+Create and returns a pandas dataframe from a directory of images.
+The directory can contain subdirectories.
+'''
+def images_to_df(dataset: str):
+    image_dir = Path(dataset)
+
+    # Get filepaths and labels - Accounting for different image file extensions
+    filepaths = list(image_dir.glob(r'**/*.JPG')) + list(image_dir.glob(r'**/*.jpg')) + list(image_dir.glob(r'**/*.png')) + list(image_dir.glob(r'**/*.png'))
+
+    labels = list(map(lambda x: os.path.split(os.path.split(x)[0])[1], filepaths))
+
+    filepaths = pd.Series(filepaths, name='Filepath').astype(str)
+    labels = pd.Series(labels, name='Label')
+
+    # Concatenate filepaths and labels
+    image_df = pd.concat([filepaths, labels], axis=1)
+
+    return image_df
+
+
+'''
+@vencerlanz09
+Displays 16 random pictures with their categories (in a 4x4 layout).
 '''
 def display_16(image_df):
     # Display 16 picture of the dataset with their labels
@@ -18,9 +60,10 @@ def display_16(image_df):
     plt.tight_layout()
     plt.show()
 
+
 '''
 @vencerlanz09
-Bar plot the 20 most frequent categories
+Bar plot the 20 most frequent categories.
 '''
 def most_freq_20(image_df):
     # Get the top 20 labels
@@ -33,4 +76,7 @@ def most_freq_20(image_df):
     plt.ylabel('Count', fontsize=14)
     plt.xticks(rotation=45)
     plt.show()
+
+
+
 
