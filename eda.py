@@ -8,9 +8,9 @@ Simple scatter plot with feature on x-axis and target on y-axis
 '''
 def plot_(df, feature: str, target: str):
     fig, ax = plt.subplots()
-    ax.scatter(df['GrLivArea'], df['SalePrice'])
-    plt.ylabel('SalePrice', fontsize=13)
-    plt.xlabel('GrLivArea', fontsize=13)
+    ax.scatter(df[feature], df[target])
+    plt.ylabel(target, fontsize=13)
+    plt.xlabel(feature, fontsize=13)
     plt.show()
 
 
