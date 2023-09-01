@@ -16,11 +16,11 @@ def plot_(df, feature: str, target: str):
 
 
 '''
-Bar plot percentage of missing data for each feature
+Bar plot percentage of missing data from train and test sets for each feature
 '''
-def plot_percent_missing(all_data, train_df, test_df, feature: str):
+def plot_percent_missing(train_df, test_df, target: str):
     all_data = pd.concat((train_df, test_df)).reset_index(drop=True)
-    all_data.drop([feature], axis=1, inplace=True)  
+    all_data.drop([target], axis=1, inplace=True)  
 
     all_data_na = (all_data.isnull().sum() / len(all_data)) * 100
     all_data_na = all_data_na.drop(all_data_na[all_data_na == 0].index).sort_values(ascending=False)[:30]
