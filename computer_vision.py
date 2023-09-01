@@ -1,15 +1,14 @@
 import tensorflow as tf
 import numpy as np
 import pandas as pd
-
+import seaborn as sns
 import matplotlib.pyplot as plt
 plt.rc('figure', autolayout=True)
 plt.rc('axes', labelweight='bold', labelsize='large',
        titleweight='bold', titlesize=18, titlepad=10)
 plt.rc('image', cmap='magma')
 
-import seaborn as sns
-sns.set_style('darkgrid')
+
 
 # System libraries
 from pathlib import Path
